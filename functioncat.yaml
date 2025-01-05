@@ -16,7 +16,7 @@ envs:
   dev:
     branch: dev
   prod:
-    branch: main
+    branch: taskb
   taskb:
     branch: taskb
 routes:
