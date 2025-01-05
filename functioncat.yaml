@@ -18,7 +18,7 @@ envs:
   prod:
     branch: main
   taskb:
-    branch: dev
+    branch: taskb
 routes:
   main_env: prod
   main_app: chatui
