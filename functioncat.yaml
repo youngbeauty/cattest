@@ -17,6 +17,8 @@ envs:
     branch: dev
   prod:
     branch: main
+  taskb:
+    branch: dev
 routes:
   main_env: prod
   main_app: chatui
@@ -29,6 +31,10 @@ auths:
         name: API-KEY
         value: ${{vars.STORE_SVC_API_KEY}}
       prod:
+        in: header
+        name: API-KEY
+        value: ${{vars.STORE_SVC_API_KEY}}
+      taskb:
         in: header
         name: API-KEY
         value: ${{vars.STORE_SVC_API_KEY}}
@@ -50,10 +56,30 @@ apps:
         provision:
           root_path: apps/chat-ui/dist
           type: nodejs18x
+      taskb:
+        build:
+          root_path: apps/chat-ui
+          script: npm install; npm run build
+        provision:
+          root_path: apps/chat-ui/dist
+          type: nodejs18x
   chatapi:
     type: web_api
     envs:
       dev:
+        build:
+          root_path: apps/chat-api
+          script: npm install
+        provision:
+          type: nodejs18x
+          root_path: apps/chat-api
+          start_command: node server.js
+          timeout: 120
+          vars:
+            - BAIDU_API_KEY
+            - BAIDU_SECRET_KEY
+            - STORE_SVC_API_KEY
+      taskb:
         build:
           root_path: apps/chat-api
           script: npm install
@@ -98,3 +124,10 @@ services:
           namespaces:
             - dailycounter
             - counter2
+      taskb:
+        auths:
+          - apikey
+        provision:
+          type: kv_store_v1
+          namespaces:
+            - dailycounter
