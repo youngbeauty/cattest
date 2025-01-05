@@ -60,7 +60,8 @@ export default {
       model: null, // Ensure this is null or an invalid value initially
       models: [
         { provider: 'baidu', name: 'ernie-4.0-8k-latest' },
-        { provider: 'baidu', name: 'ernie-3.0' }
+        { provider: 'baidu', name: 'ernie-3.0' },
+        { provider: 'Google', name: 'gemini-flash-1.5' }
       ],
       conversations: [],
       loading: false // Loading state for send button
